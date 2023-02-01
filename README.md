@@ -68,6 +68,7 @@ Yes, you can add it to the config.json file. In the file, you will file package.
 
 ### Planned Future Development
 1. Backwards compatiblity
-2. Package information command
-3. Cleaned up stdout
-4. C integration for i/o and other areas that would benefit from the speed of C
+2. Change the system variable %fox% to a path variable fox
+3. Package information command
+4. Cleaned up stdout
+5. C integration for i/o and other areas that would benefit from the speed of C
