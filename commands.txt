@@ -1,0 +1,21 @@
+help:
+    prints this document of commands
+        plans to add specific help, ie. help new would print only infomation regarding the new command
+new <projectName> [*dependencies]:
+    creates a new Fox project with an empty config.json file in the current working directory
+    dependencies are loaded into the config file
+        this can be left blank and modified manually
+    default values:
+        projectName: argument <projectName> passed on 'new'
+        version: 0.0.1
+        entry: main.py (enters your project at main.py, can be changed to whatever the entry point is)
+    example: fox new my_new_project
+run [*args]:
+    runs the package with the entry defined in config.json
+        default: main.py
+        defined in the config file at lib.entry
+    example: fox run your args here
+build:
+    builds the current package
+        builds virtual environment (if missing)
+        updates dependencies in virtual environment
