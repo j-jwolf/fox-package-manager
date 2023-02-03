@@ -33,7 +33,7 @@ Open a terminal in the folder you would like to contain the package and run the 
 
 This will create a new package with whatever you name it. You can pass additional, optional arguments after the package name. The manager will assume that these are required packages and will treat them as such:
 ```
-%fox% new your_package_name pillow igraph keyboard
+%fox% new your_package_name your dependencies go here
 ```
 
 Running this will create a package that starts with 3 dependencies. These can be changed later.
@@ -66,9 +66,9 @@ Yes, you can add it to the config.json file. In the file, you will file package.
 
 ## 4. Notes
 
-### Planned Future Development
-1. Backwards compatiblity
+### Planned Future Development (in order of planned release)
+1. Backwards compatiblity (> Python 3.10)
 2. Change the system variable %fox% to a path variable fox
-3. Package information command
-4. Cleaned up stdout
+3. Cleaned up stdout
+4. Package information command
 5. C integration for i/o and other areas that would benefit from the speed of C

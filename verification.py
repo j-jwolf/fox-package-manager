@@ -14,7 +14,7 @@ print("checking all dependencies are installed...")
 config = readFile("config.json")
 
 # finding missing packages
-dependencies = set(config["package"]["dependencies"])
+dependencies = set(config["library"]["dependencies"])
 missing = dependencies - {pkg.key for pkg in working_set}
 
 # install missing packages

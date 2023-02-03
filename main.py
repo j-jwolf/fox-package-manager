@@ -35,35 +35,36 @@ def main():
             os.mkdir(project)
             assert(not os.path.isfile(project))
             dependencies = [arg for arg in sys.argv]
-            for i in range(3): dependencies.pop(0)
+            for _ in range(3): dependencies.pop(0)
             data = {
-                "meta": {
+                "package": {
                     "projectName": project,
                     "authors": [],
                     "packageVersion": "0.0.1", # change?
-                    "pythonVersion": getPythonVersion()
+                    "pythonVersion": getPythonVersion(),
+                    "description": "",
+                    "keywords": []
                 },
-                "package": {
+                "library": {
                     "dependencies": dependencies,
-                    "entry": "main.py"
+                    "entry": mergePath("src", "main.py"),
+                    "mainArgs": []
                 }
             }
             assert(writeFile(data, mergePath(project, configFile)))
-            assert(writeFile("def main():\n\tprint('Hello, world!')\n\treturn\n\nif(__name__ == '__main__'):\n\tmain()", mergePath(project, "main.py")))
+            mkdir(mergePath(project, "src"))
+            assert(writeFile("def main() -> int:\n\tprint('Hello, world!')\n\treturn 0\n\nif(__name__ == '__main__'):\n\tmain()", mergePath(project, "src", "main.py")))
         case "run":
             args = [arg for arg in sys.argv]
-            for i in range(2): args.pop(0)
-            args = " ".join(args)
+            for _ in range(2): args.pop(0)
             config = readFile(configFile)
+            args.extend(config["library"]["mainArgs"])
+            args = " ".join(args)
             buildProject()
-            # run at entry point
-            # Popen(f"{venvCall} && {pycall} {config['package']['entry']}").wait()
-            # print(f"Venv: {venv}\nVenv call: {venvCall}\npycall: {pycall}")
-            # exit()
             print("\n\n")
-            pout(f"{venvCall} && {pycall} {config['package']['entry']} {args}")
+            pout(f"{venvCall} && {pycall} {config['library']['entry']} {args}")
         case "build": buildProject()
-        case other: print("ahhh!")
+        case other: print(f"Failed on match - case passed: {sys.argv[1]}")
     return
 
 # not implemented

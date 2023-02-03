@@ -46,6 +46,7 @@ def copyFile(o: str, c: str) -> bool: return writeFile(readFile(o), c)
 def pout(command: str, **kwargs): Popen(command, shell = True).wait()
 def windows() -> bool: return platform in {"msys", "win32", "cygwin"}
 def getPythonVersion() -> str: return version.split(" ")[0]
+def meetsVersion(ver: str) -> bool: return getPythonVersion() >= ver
 
 # path
 def mergePath(*args: str) -> str: return path.sep.join(args)
@@ -54,3 +55,10 @@ def getCwd() -> str: return getcwd()
 # make main directory
 if(windows()): mainDir = mergePath(path.expanduser("~"), "Fox-Package-Manager")
 else: exit()
+
+# set up backwards compatibility --> what is able to run on the current version?
+backwardsCompitable = {
+    "match": meetsVersion("3.10.0"),
+    "unionType": meetsVersion("3.10.0"),
+    "typing": meetsVersion("3.5.0")
+}
