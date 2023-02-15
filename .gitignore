@@ -1,6 +1,8 @@
 testing/*
 *.test
 test.*
+testing.*
+*.testing
 
 launcher.py
 
