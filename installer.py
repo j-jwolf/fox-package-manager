@@ -8,13 +8,12 @@ from sys import argv, executable
 from utils import *
 
 def getVersion() -> str:
-    version = "0.0.1"
+    version = "0.0.1" # move me somewhere
     return f"Fox Package Manager v{version}"
 
 # create persistent data file
 
 # wip -> finish me!
-
 persistentFile = mergePath(mainDir, "persistent.json")
 if(not path.isfile(persistentFile)):
     persistent = {
@@ -28,9 +27,10 @@ if(not path.isfile(persistentFile)):
 else: persistent = readFile(persistentFile)
 
 """
-bootstrap this
 
-needs to have admin permissions
+MOVE TO A SEPARATE FILE -- FOR BOOTSTRAPING OTHER PROGRAMS
+
+in case other files need to be run as admin
 
 """
 class SW(enum.IntEnum):
@@ -62,7 +62,18 @@ class ERROR(enum.IntEnum):
     OOM = 8
     SHARE = 26
 
-def bootstrap():
+""" use that function mapping you tested earlier -->
+functionMap = {
+    someFunctionName: theActualFunction,
+    ...
+}
+
+for arg in argv: functionMap[arg]()
+
+need a way to pass args
+
+"""
+def bootstrap() -> None:
     global persistent
     if(ctypes.windll.shell32.IsUserAnAdmin()):
         print("running main")
@@ -72,11 +83,12 @@ def bootstrap():
         hinstance = ctypes.windll.shell32.ShellExecuteW(None, 'runas', executable, argv[0], None, SW.SHOWNORMAL)
         if hinstance <= 32: raise RuntimeError(ERROR(hinstance))
 
-# on hold (low priority)
+# work in progress (low priority)
 # debug = False
 # if "-debug" in argv: debug = True
 
 def copyFile(o: str, c: str) -> bool:
+    # why does this exist? the EXACT function exists in utils, which is imported
     try:
        with open(o, "rb") as original, open(c, "wb") as copy: copy.write(original.read())
        return True

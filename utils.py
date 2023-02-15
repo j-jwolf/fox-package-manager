@@ -15,6 +15,7 @@ if not platform in {'win32', "msys", "cygwin"}:
 
 # i/o
 def readFile(fn: str, binary: bool = None) -> str | dict:
+    # reads the file based on its extension, json files are read as dictionaries
     assert(path.isfile(fn))
     if not binary in {True, False}: binary = False # default to text
     data = None
@@ -30,7 +31,7 @@ def readFile(fn: str, binary: bool = None) -> str | dict:
     except Exception as e: print(e)
     return data
 def writeFile(data: str | dict, fn: str, mode: str = None) -> bool:
-    if mode not in {"w", "a", "rb", "wb"}: mode = "w" # default to write
+    if mode not in {"w", "a", "rb", "wb"} or fn.split(".")[1] == "json" and mode != "w": mode = "w" # default to write
     try:
         with open(fn, mode) as file:
             match fn.split(".")[1]:

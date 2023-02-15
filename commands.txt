@@ -19,3 +19,21 @@ build:
     builds the current package
         builds virtual environment (if missing)
         updates dependencies in virtual environment
+entry <targetFile> [*flags]:
+    sets where the package will initially run from (targetFile)
+    without running this, the package will default to src/main.py
+    takes additional flags:
+        -no_src: sets the entry file verbatim. (sets it to yourEntryFile, not src/yourEntryFile)
+add-depen [*dependencies]:
+    adds each dependency to the package if it is not already in the dependency list
+    duplicates will be ignored
+drop-depen [*dependencies]:
+    removes each dependency from the package
+    if not found, it will be ignored. There is a currently a bug with this:
+        if your virtual environment does not contain the specified module and it is in your config file's list of dependencies, it will not be removed from the config file.
+        the easiest solution would be to manually delete the dependency from the config file.
+set-args [*args]:
+    sets the args for the package. arguments passed to run (see above) will take priority and be placed before this list.
+    useful for programs where arguments do not change
+clear-args:
+    clears the package's arguments in the config file
